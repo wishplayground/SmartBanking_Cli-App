@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 class SmartBankingCliApp{
@@ -21,7 +22,7 @@ class SmartBankingCliApp{
         //Arrays
         String[] AccId = new String[0];
         String[] names = new String[0];
-        int[] AccBal = new int[0];
+        int[] initialDepo = new int[0];
 
         main_loop:
         do{
@@ -61,7 +62,7 @@ class SmartBankingCliApp{
                 case Open_New_Acc:
                     //Generate Acc number
                     boolean validName = false;
-                    int x = 1;
+                    int x = 1, initDepo;
                     String id,accName;
                     loop_name:
                     while(true){
@@ -83,10 +84,18 @@ class SmartBankingCliApp{
                                 }
                             }
                         }
+                        //Ids Store in a array
+                        String[] newAcId = new String[AccId.length+1];
+                        for (int i = 0; i < AccId.length; i++) {
+                            newAcId[i] = AccId[i];
+                        }
+                        newAcId[newAcId.length -1] = id;
+                        AccId = newAcId;
+                        System.out.println(Arrays.toString(AccId));
                         //Initial Desposit
                         do{
                             System.out.print("Initial Deposit: ");
-                            int initDepo = scanner.nextInt();
+                            initDepo = scanner.nextInt();
                             scanner.nextLine();
                             if(initDepo < 5000){
                                 System.out.print("Insufficient Deposit.Do you want Deposit sufficient amount: ");
@@ -98,6 +107,21 @@ class SmartBankingCliApp{
                                 break;
                             }
                         }while(true);
+                        //Names Store in a array
+                        String[] newNames = new String[names.length+1];
+                        for (int i = 0; i < names.length; i++) {
+                            newNames[i] = names[i];
+                        }
+                        newNames[newNames.length -1] = accName;
+                        names = newNames;
+
+                        //Deposits Store in a array
+                        int[] newDepo = new int[initialDepo.length+1];
+                        for (int i = 0; i < initialDepo.length; i++) {
+                            newDepo[i] = initialDepo[i];
+                        }
+                        newDepo[newDepo.length -1] = initDepo;
+                        newDepo = initialDepo;
                         System.out.print("Do you want to Open another Account? (Y/N) >> ");
                         if(scanner.nextLine().strip().toUpperCase().equals("Y")){
                             x++;

@@ -6,7 +6,7 @@ class SmartBankingCliApp{
     public static void main(String[] args) {
         
         final String clear = "\033[H\033[2J";
-        final String color_Blue = "\033[1;34m",color_green = "\033[0;32m",Purple = "\033[0;35m",reset ="\033[0m";
+        final String color_Blue = "\033[1;34m",color_green = "\033[0;32m",Purple = "\033[0;35m",reset ="\033[0m",Yellow = "\033[0;33m",GREEN_BACKGROUND = "\033[42m";
 
         final String Dashboard = "Smart Banking System";
         final String Open_New_Acc = "Open New Account";
@@ -62,13 +62,13 @@ class SmartBankingCliApp{
                     //Generate Acc number
                     boolean validName = false;
                     int x = 1;
-                    String id;
+                    String id,accName;
                     loop_name:
                     while(true){
-                        id = String.format("SDB-%05d\n",x);
-                        System.out.printf("New Account number => %s%s%s",Purple,id,reset);
+                        id = String.format("SDB-%05d",x);
+                        System.out.printf("New Account number => %s%s%s\n",Purple,id,reset);
                         System.out.print("Enter name: ");
-                        String accName = scanner.nextLine().strip();
+                        accName = scanner.nextLine().strip();
                         //name validation
                         if(accName.isBlank()) {
                             System.out.println("Name cannot be Empty. Try Again");
@@ -94,7 +94,7 @@ class SmartBankingCliApp{
                                 else screen = Dashboard; break loop_name;
                                 
                             }else{
-                                System.out.printf("Account number %s of %s has been created");
+                                System.out.printf("Account number %s%s%s of %s\033[1;30m%s%s has been created\n",Yellow,id,reset,GREEN_BACKGROUND,accName.toUpperCase(),reset);
                                 break;
                             }
                         }while(true);
@@ -102,7 +102,7 @@ class SmartBankingCliApp{
                         if(scanner.nextLine().strip().toUpperCase().equals("Y")){
                             x++;
                             continue;
-                        }
+                        }else screen = Dashboard; break loop_name;
                     }
 
             }

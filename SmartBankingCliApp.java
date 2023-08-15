@@ -83,10 +83,26 @@ class SmartBankingCliApp{
                                 }
                             }
                         }
-                        
-            
-
-                        
+                        //Initial Desposit
+                        do{
+                            System.out.print("Initial Deposit: ");
+                            int initDepo = scanner.nextInt();
+                            scanner.nextLine();
+                            if(initDepo < 5000){
+                                System.out.print("Insufficient Deposit.Do you want Deposit sufficient amount: ");
+                                if(scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                                else screen = Dashboard; break loop_name;
+                                
+                            }else{
+                                System.out.printf("Account number %s of %s has been created");
+                                break;
+                            }
+                        }while(true);
+                        System.out.print("Do you want to Open another Account? (Y/N) >> ");
+                        if(scanner.nextLine().strip().toUpperCase().equals("Y")){
+                            x++;
+                            continue;
+                        }
                     }
 
             }

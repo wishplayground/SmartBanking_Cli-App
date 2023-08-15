@@ -33,6 +33,7 @@ class SmartBankingCliApp{
             System.out.println(line);
             System.out.println(title);
             System.out.println(line);
+            lbl_main:
             switch (screen){
                 
                 case Dashboard:
@@ -98,7 +99,7 @@ class SmartBankingCliApp{
                             initDepo = scanner.nextInt();
                             scanner.nextLine();
                             if(initDepo < 5000){
-                                System.out.print("Insufficient Deposit.Do you want Deposit sufficient amount: ");
+                                System.out.print("Insufficient Deposit.Do you want Deposit sufficient amount(Y/N): ");
                                 if(scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
                                 else screen = Dashboard; break loop_name;
                                 
@@ -126,8 +127,45 @@ class SmartBankingCliApp{
                         if(scanner.nextLine().strip().toUpperCase().equals("Y")){
                             x++;
                             continue;
-                        }else screen = Dashboard; break loop_name;
+                        }else screen = Dashboard;break lbl_main;
+                        
                     }
+                    
+                case Deposit_Money:
+                    boolean exist =false;
+                    loop_DepoMoney:
+                    do{
+                        System.out.print("Enter Account number: ");
+                        String accNum = scanner.nextLine();
+                        //Input Acc number validation
+                        if(!(accNum.startsWith("SDB-") || accNum.length() == 9)){
+                            System.out.print("Invalid Account number. Do you want to try again(Y/N) >>");
+                            if(scanner.nextLine().strip().toUpperCase().equals("Y")) continue;
+                            else screen = Dashboard; break ;
+                        }else{
+                            for (int i = 4; i < accNum.length(); i++) {
+                                if(!Character.isDigit(accNum.charAt(i))){
+                                    System.out.print("Invalid Account number. Do you want to try again(Y/N) >>");
+                                    if(scanner.nextLine().strip().toUpperCase().equals("Y")) continue loop_DepoMoney;
+                                    else screen = Dashboard; break loop_DepoMoney;
+                                }
+                            }
+                        }
+                        //check exist
+                        int accIndex=0;
+                        for (int i = 0; i < AccId.length; i++) {
+                            if(accNum == AccId[i] ) exist = true;accIndex = i;
+                        }
+                        if(!exist){
+                            System.out.print("Account number Do not Exist. Do you want to try again(Y/N) >>");
+                            if(scanner.nextLine().strip().toUpperCase().equals("Y")) continue loop_DepoMoney;
+                            else screen = Dashboard; break loop_DepoMoney;
+                        }
+
+                        System.out.printf("Welcome %s \n Current Balance is:Rs%,d.00",names[accIndex],initialDepo);
+                    
+                    }while(true);
+
 
             }
         }while(true);

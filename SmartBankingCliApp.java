@@ -19,7 +19,7 @@ class SmartBankingCliApp{
         String screen = Dashboard;
 
         //Arrays
-        String[] accId = new String[0];
+        String[] AccId = new String[0];
         String[] names = new String[0];
         main_loop:
         do{
@@ -61,9 +61,23 @@ class SmartBankingCliApp{
                     int x = 1;
                     String id;
                     while(true){
-                        id = String.format("SDB-%05d\n"x,reset);
+                        id = String.format("SDB-%05d\n",x);
                         System.out.printf("New Account number => %s%s%s",Purple,id,reset);
                         System.out.print("Enter name: ");
+                        String accName = scanner.nextLine().strip();
+                        //name validation
+                        if(accName.isBlank()) {
+                            System.out.println("Name cannot be Empty. Try Again");
+                            continue;
+                        }else{
+                            for (int i = 0; i < accName.length() ; i++) {
+                                if(!(Character.isLetter(accName.toLowerCase().charAt(i)) || accName.charAt(i) == ' ')) {
+                                    System.out.print("Invalid Name. Do you want continue(Y/N) >>");
+                                    break;
+                                }
+                            }
+                            x++;
+                        }
                         break main_loop;
                     }
 

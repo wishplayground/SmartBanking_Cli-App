@@ -21,6 +21,8 @@ class SmartBankingCliApp{
         //Arrays
         String[] AccId = new String[0];
         String[] names = new String[0];
+        int[] AccBal = new int[0];
+
         main_loop:
         do{
             //Title
@@ -58,8 +60,10 @@ class SmartBankingCliApp{
                 
                 case Open_New_Acc:
                     //Generate Acc number
+                    boolean validName = false;
                     int x = 1;
                     String id;
+                    loop_name:
                     while(true){
                         id = String.format("SDB-%05d\n",x);
                         System.out.printf("New Account number => %s%s%s",Purple,id,reset);
@@ -72,13 +76,17 @@ class SmartBankingCliApp{
                         }else{
                             for (int i = 0; i < accName.length() ; i++) {
                                 if(!(Character.isLetter(accName.toLowerCase().charAt(i)) || accName.charAt(i) == ' ')) {
-                                    System.out.print("Invalid Name. Do you want continue(Y/N) >>");
-                                    break;
+                                    System.out.print("Invalid Name. Do you want Enter a valid name? (Y/N) >> ");
+                                    if(scanner.nextLine().strip().toUpperCase().equals("Y")) continue loop_name;
+                                    screen = Dashboard;
+                                    break loop_name;
                                 }
                             }
-                            x++;
                         }
-                        break main_loop;
+                        
+            
+
+                        
                     }
 
             }
